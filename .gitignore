@@ -1,0 +1,9 @@
+# sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ferramentas
+node_modules/
+.vscode/
+.claude/settings.local.json
