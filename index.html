@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- ARTIFACT-START: tudo abaixo desta linha forma a página publicada -->
+<title>Modelador de Árvores de Decisão</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="css/app.css">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="var(--muted)"></path>
+    </marker>
+    <marker id="arrow-sel" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="var(--q)"></path>
+    </marker>
+  </defs>
+</svg>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand__mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <rect x="11" y="3" width="10" height="7" rx="2"></rect>
+        <rect x="2" y="22" width="10" height="7" rx="2"></rect>
+        <rect x="20" y="22" width="10" height="7" rx="2" fill="currentColor"></rect>
+        <path d="M16 10v5M7 22v-4h18v4"></path>
+      </svg>
+      <div class="brand__text">
+        <span class="brand__app">Modelador de árvores de decisão</span>
+        <input id="docTitle" class="title-input" type="text" aria-label="Título da árvore" spellcheck="true">
+      </div>
+    </div>
+
+    <nav class="toolbar" aria-label="Ferramentas">
+      <div class="tgroup">
+        <button class="btn" id="btnNew" title="Nova árvore em branco">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 1.5h5l3.5 3.5v9.5h-8.5z"></path><path d="M9 1.5V5h3.5"></path></svg>
+          <span class="btn__label">Novo</span>
+        </button>
+        <button class="btn" id="btnOpen" title="Abrir arquivo .json (Ctrl+O)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1.5 3.5h4.5l1.5 1.5h7v8.5h-13z"></path></svg>
+          <span class="btn__label">Abrir</span>
+        </button>
+        <button class="btn" id="btnSave" title="Salvar arquivo .json (Ctrl+S)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 2h9.5L14 4.5V14H2z"></path><path d="M5 2v4h6V2M5 14v-4.5h6V14"></path></svg>
+          <span class="btn__label">Salvar</span>
+        </button>
+        <button class="btn" id="btnSaveAs" title="Salvar em outro arquivo" hidden>
+          <span class="btn__label">Salvar como…</span>
+        </button>
+      </div>
+      <div class="tgroup">
+        <button class="btn btn--q" id="btnAddQ" title="Adicionar pergunta">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10"></path></svg>
+          <span class="btn__label">Pergunta</span>
+        </button>
+        <button class="btn btn--dec" id="btnAddD" title="Adicionar decisão ou recomendação (nó final, sem opções)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10"></path></svg>
+          <span class="btn__label">Decisão</span>
+        </button>
+      </div>
+      <div class="tgroup">
+        <button class="btn btn--icon" id="btnUndo" title="Desfazer (Ctrl+Z)" aria-label="Desfazer">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5.5 3 2.5 6l3 3"></path><path d="M2.5 6H10a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        </button>
+        <button class="btn btn--icon" id="btnRedo" title="Refazer (Ctrl+Y)" aria-label="Refazer">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M10.5 3l3 3-3 3"></path><path d="M13.5 6H6a3.5 3.5 0 0 0 0 7h4"></path></svg>
+        </button>
+        <button class="btn" id="btnLayout" title="Organizar automaticamente a posição dos nós">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1.5" y="6" width="4" height="4" rx="1"></rect><rect x="10.5" y="2" width="4" height="4" rx="1"></rect><rect x="10.5" y="10" width="4" height="4" rx="1"></rect><path d="M5.5 8h2.5V4h2.5M8 8v4h2.5"></path></svg>
+          <span class="btn__label">Organizar</span>
+        </button>
+      </div>
+      <div class="tgroup">
+        <button class="btn btn--primary" id="btnTest" title="Percorrer a árvore respondendo às perguntas">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"></path></svg>
+          <span class="btn__label">Testar árvore</span>
+        </button>
+      </div>
+    </nav>
+    <div class="status" id="status" aria-live="polite"><span class="status__dot"></span><span id="statusText">Tudo salvo</span></div>
+  </header>
+
+  <main class="workspace">
+    <section class="canvas-wrap" id="canvas" aria-label="Área de desenho da árvore">
+      <div class="world" id="world">
+        <svg class="edges" id="edges"></svg>
+        <div id="nodes"></div>
+      </div>
+      <div class="empty" id="empty" hidden>
+        <div class="empty__card">
+          <h2>Comece pela primeira pergunta</h2>
+          <p>Cada pergunta tem opções de resposta. Cada opção leva a outra pergunta ou a uma decisão final.</p>
+          <div class="row">
+            <button class="btn btn--primary" id="emptyAddQ"><span class="btn__label">Adicionar pergunta</span></button>
+            <button class="btn" id="emptyExample">Ver exemplo</button>
+          </div>
+        </div>
+      </div>
+      <div class="zoombar">
+        <button class="btn btn--icon btn--sm" id="zoomOut" aria-label="Diminuir zoom" title="Diminuir zoom">−</button>
+        <span class="zoombar__val" id="zoomVal">100%</span>
+        <button class="btn btn--icon btn--sm" id="zoomIn" aria-label="Aumentar zoom" title="Aumentar zoom">+</button>
+        <button class="btn btn--sm" id="zoomFit" title="Mostrar a árvore inteira">Ajustar</button>
+      </div>
+      <div class="hint" id="hint">
+        Arraste a <b>bolinha</b> de uma opção até outra pergunta para conectar. Solte no vazio para criar um nó novo.
+        Arraste o fundo para mover; use a roda do mouse para zoom.
+      </div>
+    </section>
+    <aside class="inspector" id="inspector" aria-label="Painel de edição"></aside>
+  </main>
+</div>
+
+<div class="modal" id="simModal" hidden role="dialog" aria-modal="true" aria-labelledby="simTitle">
+  <div class="modal__box">
+    <div class="modal__head">
+      <h2 id="simTitle">Testar árvore</h2>
+      <button class="btn btn--icon btn--sm" id="simClose" aria-label="Fechar">✕</button>
+    </div>
+    <div class="modal__body" id="simBody"></div>
+    <div class="modal__foot">
+      <button class="btn" id="simBack">Voltar uma etapa</button>
+      <button class="btn" id="simRestart">Recomeçar</button>
+      <button class="btn btn--primary" id="simDone">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="confirmModal" hidden role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle">
+  <div class="modal__box modal__box--sm">
+    <div class="modal__head"><h2 id="confirmTitle">Confirmar</h2></div>
+    <div class="modal__body"><p class="muted" id="confirmText"></p></div>
+    <div class="modal__foot">
+      <button class="btn" id="confirmNo">Cancelar</button>
+      <button class="btn btn--primary" id="confirmYes">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<div class="popmenu" id="popmenu" hidden></div>
+<div class="toast" id="toast" hidden role="status"></div>
+<input type="file" id="fileInput" accept=".json,application/json" hidden>
+
+<script src="js/model.js"></script>
+<script src="js/canvas.js"></script>
+<script src="js/inspector.js"></script>
+<script src="js/app.js"></script>

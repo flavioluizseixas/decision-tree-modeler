@@ -1,0 +1,122 @@
+{
+  "formato": "arvore-decisao",
+  "versao": 1,
+  "titulo": "Exemplo: avaliação da dor no pós-operatório",
+  "descricao": "Exemplo ilustrativo para aprender a usar o modelador. Não é um protocolo clínico validado.",
+  "autor": "",
+  "atualizadoEm": "2026-11-20T19:01:20.129Z",
+  "inicio": "n1",
+  "nos": [
+    {
+      "id": "n1",
+      "tipo": "pergunta",
+      "texto": "O paciente consegue relatar a intensidade da dor?",
+      "observacao": "",
+      "posicao": {
+        "x": 0,
+        "y": 0
+      },
+      "respostas": [
+        {
+          "id": "r1",
+          "texto": "Sim",
+          "destino": "n2"
+        },
+        {
+          "id": "r2",
+          "texto": "Não",
+          "destino": "n3"
+        }
+      ]
+    },
+    {
+      "id": "n2",
+      "tipo": "pergunta",
+      "texto": "Qual a intensidade da dor na escala numérica (0 a 10)?",
+      "observacao": "",
+      "posicao": {
+        "x": 400,
+        "y": 30
+      },
+      "respostas": [
+        {
+          "id": "r3",
+          "texto": "0 a 3 (leve)",
+          "destino": "n4"
+        },
+        {
+          "id": "r4",
+          "texto": "4 a 6 (moderada)",
+          "destino": "n5"
+        },
+        {
+          "id": "r5",
+          "texto": "7 a 10 (intensa)",
+          "destino": "n6"
+        }
+      ]
+    },
+    {
+      "id": "n3",
+      "tipo": "pergunta",
+      "texto": "A escala comportamental indica presença de dor?",
+      "observacao": "",
+      "posicao": {
+        "x": 400,
+        "y": 260
+      },
+      "respostas": [
+        {
+          "id": "r6",
+          "texto": "Sim, há sinais de dor",
+          "destino": "n5"
+        },
+        {
+          "id": "r7",
+          "texto": "Não há sinais de dor",
+          "destino": "n7"
+        }
+      ]
+    },
+    {
+      "id": "n4",
+      "tipo": "decisao",
+      "texto": "Manter analgesia prescrita e medidas não farmacológicas. Reavaliar na rotina.",
+      "observacao": "",
+      "posicao": {
+        "x": 800,
+        "y": 60
+      }
+    },
+    {
+      "id": "n5",
+      "tipo": "decisao",
+      "texto": "Administrar analgesia conforme prescrição e protocolo institucional. Reavaliar em 30 a 60 minutos.",
+      "observacao": "Recebe pacientes de dois caminhos: dor moderada relatada e dor identificada pela escala comportamental.",
+      "posicao": {
+        "x": 800,
+        "y": 352
+      }
+    },
+    {
+      "id": "n6",
+      "tipo": "decisao",
+      "texto": "Comunicar a equipe médica, administrar analgesia de resgate conforme prescrição e reavaliar em 30 minutos.",
+      "observacao": "",
+      "posicao": {
+        "x": 800,
+        "y": 206
+      }
+    },
+    {
+      "id": "n7",
+      "tipo": "decisao",
+      "texto": "Manter monitoramento e reavaliar a dor na próxima aferição de sinais vitais.",
+      "observacao": "",
+      "posicao": {
+        "x": 800,
+        "y": 498
+      }
+    }
+  ]
+}
