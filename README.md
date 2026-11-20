@@ -6,7 +6,9 @@ Feita para estudantes da pós-graduação profissional em enfermagem assistencia
 
 ## Como abrir
 
-Dê um duplo clique em `index.html`. Ele abre no navegador (Chrome ou Edge recomendados).
+**Online:** https://flavioluizseixas.github.io/decision-tree-modeler/
+
+**No computador, sem internet:** baixe esta pasta e dê um duplo clique em `index.html`. Ele abre no navegador (Chrome ou Edge recomendados).
 
 No Chrome e no Edge, **Salvar** grava direto no arquivo escolhido. As próximas vezes que você salvar, ele grava no mesmo arquivo. Em outros navegadores, **Salvar** baixa o arquivo `.json` para a pasta Downloads.
 
